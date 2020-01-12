@@ -26,7 +26,8 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+//
+// Author: vladl@google.com (Vlad Losev)
 
 // Google Mock - a framework for writing C++ mock classes.
 //
@@ -89,10 +90,8 @@
 //      Field
 //      Property
 //      ResultOf(function)
-//      ResultOf(callback)
 //      Pointee
 //      Truly(predicate)
-//      AddressSatisfies
 //      AllOf
 //      AnyOf
 //      Not
@@ -121,15 +120,13 @@
 # include <errno.h>
 #endif
 
+#include "gmock/internal/gmock-port.h"
+#include "gtest/gtest.h"
 #include <iostream>
 #include <vector>
 
-#include "gtest/gtest.h"
-#include "gtest/internal/gtest-port.h"
-
 using testing::_;
 using testing::A;
-using testing::Action;
 using testing::AllOf;
 using testing::AnyOf;
 using testing::Assign;
@@ -151,8 +148,6 @@ using testing::Invoke;
 using testing::InvokeArgument;
 using testing::InvokeWithoutArgs;
 using testing::IsNull;
-using testing::IsSubsetOf;
-using testing::IsSupersetOf;
 using testing::Le;
 using testing::Lt;
 using testing::Matcher;
@@ -595,22 +590,6 @@ TEST(LinkTest, TestMatcherElementsAreArray) {
   char arr[] = { 'a', 'b' };
 
   ON_CALL(mock, VoidFromVector(ElementsAreArray(arr))).WillByDefault(Return());
-}
-
-// Tests the linkage of the IsSubsetOf matcher.
-TEST(LinkTest, TestMatcherIsSubsetOf) {
-  Mock mock;
-  char arr[] = {'a', 'b'};
-
-  ON_CALL(mock, VoidFromVector(IsSubsetOf(arr))).WillByDefault(Return());
-}
-
-// Tests the linkage of the IsSupersetOf matcher.
-TEST(LinkTest, TestMatcherIsSupersetOf) {
-  Mock mock;
-  char arr[] = {'a', 'b'};
-
-  ON_CALL(mock, VoidFromVector(IsSupersetOf(arr))).WillByDefault(Return());
 }
 
 // Tests the linkage of the ContainerEq matcher.

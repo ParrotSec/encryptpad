@@ -26,15 +26,15 @@
 // THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+//
+// Author: wan@google.com (Zhanyong Wan)
 
 #include "gmock/gmock-generated-nice-strict.h"
 
 #include <string>
-#include <utility>
 #include "gmock/gmock.h"
-#include "gtest/gtest-spi.h"
 #include "gtest/gtest.h"
+#include "gtest/gtest-spi.h"
 
 // This must not be defined inside the ::testing namespace, or it will
 // clash with ::testing::Mock.
@@ -51,6 +51,7 @@ class Mock {
 namespace testing {
 namespace gmock_nice_strict_test {
 
+using testing::internal::string;
 using testing::GMOCK_FLAG(verbose);
 using testing::HasSubstr;
 using testing::NaggyMock;
@@ -61,12 +62,6 @@ using testing::StrictMock;
 using testing::internal::CaptureStdout;
 using testing::internal::GetCapturedStdout;
 #endif
-
-// Class without default constructor.
-class NotDefaultConstructible {
- public:
-  explicit NotDefaultConstructible(int) {}
-};
 
 // Defines some mock classes needed by the tests.
 
@@ -85,7 +80,6 @@ class MockFoo : public Foo {
 
   MOCK_METHOD0(DoThis, void());
   MOCK_METHOD1(DoThat, int(bool flag));
-  MOCK_METHOD0(ReturnNonDefaultConstructible, NotDefaultConstructible());
 
  private:
   GTEST_DISALLOW_COPY_AND_ASSIGN_(MockFoo);
@@ -93,50 +87,32 @@ class MockFoo : public Foo {
 
 class MockBar {
  public:
-  explicit MockBar(const std::string& s) : str_(s) {}
+  explicit MockBar(const string& s) : str_(s) {}
 
-  MockBar(char a1, char a2, std::string a3, std::string a4, int a5, int a6,
-          const std::string& a7, const std::string& a8, bool a9, bool a10) {
-    str_ = std::string() + a1 + a2 + a3 + a4 + static_cast<char>(a5) +
+  MockBar(char a1, char a2, string a3, string a4, int a5, int a6,
+          const string& a7, const string& a8, bool a9, bool a10) {
+    str_ = string() + a1 + a2 + a3 + a4 + static_cast<char>(a5) +
         static_cast<char>(a6) + a7 + a8 + (a9 ? 'T' : 'F') + (a10 ? 'T' : 'F');
   }
 
   virtual ~MockBar() {}
 
-  const std::string& str() const { return str_; }
+  const string& str() const { return str_; }
 
   MOCK_METHOD0(This, int());
-  MOCK_METHOD2(That, std::string(int, bool));
+  MOCK_METHOD2(That, string(int, bool));
 
  private:
-  std::string str_;
+  string str_;
 
   GTEST_DISALLOW_COPY_AND_ASSIGN_(MockBar);
 };
-
-#if GTEST_GTEST_LANG_CXX11
-
-class MockBaz {
- public:
-  class MoveOnly {
-    MoveOnly() = default;
-
-    MoveOnly(const MoveOnly&) = delete;
-    operator=(const MoveOnly&) = delete;
-
-    MoveOnly(MoveOnly&&) = default;
-    operator=(MoveOnly&&) = default;
-  };
-
-  MockBaz(MoveOnly) {}
-}
-#endif  // GTEST_GTEST_LANG_CXX11 && GTEST_HAS_STD_MOVE_
 
 #if GTEST_HAS_STREAM_REDIRECTION
 
 // Tests that a raw mock generates warnings for uninteresting calls.
 TEST(RawMockTest, WarningForUninterestingCall) {
-  const std::string saved_flag = GMOCK_FLAG(verbose);
+  const string saved_flag = GMOCK_FLAG(verbose);
   GMOCK_FLAG(verbose) = "warning";
 
   MockFoo raw_foo;
@@ -153,7 +129,7 @@ TEST(RawMockTest, WarningForUninterestingCall) {
 // Tests that a raw mock generates warnings for uninteresting calls
 // that delete the mock object.
 TEST(RawMockTest, WarningForUninterestingCallAfterDeath) {
-  const std::string saved_flag = GMOCK_FLAG(verbose);
+  const string saved_flag = GMOCK_FLAG(verbose);
   GMOCK_FLAG(verbose) = "warning";
 
   MockFoo* const raw_foo = new MockFoo;
@@ -174,7 +150,7 @@ TEST(RawMockTest, WarningForUninterestingCallAfterDeath) {
 TEST(RawMockTest, InfoForUninterestingCall) {
   MockFoo raw_foo;
 
-  const std::string saved_flag = GMOCK_FLAG(verbose);
+  const string saved_flag = GMOCK_FLAG(verbose);
   GMOCK_FLAG(verbose) = "info";
   CaptureStdout();
   raw_foo.DoThis();
@@ -212,7 +188,7 @@ TEST(NiceMockTest, NoWarningForUninterestingCallAfterDeath) {
 TEST(NiceMockTest, InfoForUninterestingCall) {
   NiceMock<MockFoo> nice_foo;
 
-  const std::string saved_flag = GMOCK_FLAG(verbose);
+  const string saved_flag = GMOCK_FLAG(verbose);
   GMOCK_FLAG(verbose) = "info";
   CaptureStdout();
   nice_foo.DoThis();
@@ -230,23 +206,6 @@ TEST(NiceMockTest, AllowsExpectedCall) {
 
   EXPECT_CALL(nice_foo, DoThis());
   nice_foo.DoThis();
-}
-
-// Tests that an unexpected call on a nice mock which returns a
-// not-default-constructible type throws an exception and the exception contains
-// the method's name.
-TEST(NiceMockTest, ThrowsExceptionForUnknownReturnTypes) {
-  NiceMock<MockFoo> nice_foo;
-#if GTEST_HAS_EXCEPTIONS
-  try {
-    nice_foo.ReturnNonDefaultConstructible();
-    FAIL();
-  } catch (const std::runtime_error& ex) {
-    EXPECT_THAT(ex.what(), HasSubstr("ReturnNonDefaultConstructible"));
-  }
-#else
-  EXPECT_DEATH_IF_SUPPORTED({ nice_foo.ReturnNonDefaultConstructible(); }, "");
-#endif
 }
 
 // Tests that an unexpected call on a nice mock fails.
@@ -278,21 +237,6 @@ TEST(NiceMockTest, NonDefaultConstructor10) {
   nice_bar.That(5, true);
 }
 
-TEST(NiceMockTest, AllowLeak) {
-  NiceMock<MockFoo>* leaked = new NiceMock<MockFoo>;
-  Mock::AllowLeak(leaked);
-  EXPECT_CALL(*leaked, DoThis());
-  leaked->DoThis();
-}
-
-#if GTEST_GTEST_LANG_CXX11 && GTEST_HAS_STD_MOVE_
-
-TEST(NiceMockTest, MoveOnlyConstructor) {
-  NiceMock<MockBaz> nice_baz(MockBaz::MoveOnly());
-}
-
-#endif  // GTEST_LANG_CXX11 && GTEST_HAS_STD_MOVE_
-
 #if !GTEST_OS_SYMBIAN && !GTEST_OS_WINDOWS_MOBILE
 // Tests that NiceMock<Mock> compiles where Mock is a user-defined
 // class (as opposed to ::testing::Mock).  We had to work around an
@@ -313,7 +257,7 @@ TEST(NiceMockTest, AcceptsClassNamedMock) {
 
 // Tests that a naggy mock generates warnings for uninteresting calls.
 TEST(NaggyMockTest, WarningForUninterestingCall) {
-  const std::string saved_flag = GMOCK_FLAG(verbose);
+  const string saved_flag = GMOCK_FLAG(verbose);
   GMOCK_FLAG(verbose) = "warning";
 
   NaggyMock<MockFoo> naggy_foo;
@@ -330,7 +274,7 @@ TEST(NaggyMockTest, WarningForUninterestingCall) {
 // Tests that a naggy mock generates a warning for an uninteresting call
 // that deletes the mock object.
 TEST(NaggyMockTest, WarningForUninterestingCallAfterDeath) {
-  const std::string saved_flag = GMOCK_FLAG(verbose);
+  const string saved_flag = GMOCK_FLAG(verbose);
   GMOCK_FLAG(verbose) = "warning";
 
   NaggyMock<MockFoo>* const naggy_foo = new NaggyMock<MockFoo>;
@@ -385,21 +329,6 @@ TEST(NaggyMockTest, NonDefaultConstructor10) {
   naggy_bar.This();
   naggy_bar.That(5, true);
 }
-
-TEST(NaggyMockTest, AllowLeak) {
-  NaggyMock<MockFoo>* leaked = new NaggyMock<MockFoo>;
-  Mock::AllowLeak(leaked);
-  EXPECT_CALL(*leaked, DoThis());
-  leaked->DoThis();
-}
-
-#if GTEST_GTEST_LANG_CXX11 && GTEST_HAS_STD_MOVE_
-
-TEST(NaggyMockTest, MoveOnlyConstructor) {
-  NaggyMock<MockBaz> naggy_baz(MockBaz::MoveOnly());
-}
-
-#endif  // GTEST_LANG_CXX11 && GTEST_HAS_STD_MOVE_
 
 #if !GTEST_OS_SYMBIAN && !GTEST_OS_WINDOWS_MOBILE
 // Tests that NaggyMock<Mock> compiles where Mock is a user-defined
@@ -474,21 +403,6 @@ TEST(StrictMockTest, NonDefaultConstructor10) {
   EXPECT_NONFATAL_FAILURE(strict_bar.That(5, true),
                           "Uninteresting mock function call");
 }
-
-TEST(StrictMockTest, AllowLeak) {
-  StrictMock<MockFoo>* leaked = new StrictMock<MockFoo>;
-  Mock::AllowLeak(leaked);
-  EXPECT_CALL(*leaked, DoThis());
-  leaked->DoThis();
-}
-
-#if GTEST_GTEST_LANG_CXX11 && GTEST_HAS_STD_MOVE_
-
-TEST(StrictMockTest, MoveOnlyConstructor) {
-  StrictMock<MockBaz> strict_baz(MockBaz::MoveOnly());
-}
-
-#endif  // GTEST_LANG_CXX11 && GTEST_HAS_STD_MOVE_
 
 #if !GTEST_OS_SYMBIAN && !GTEST_OS_WINDOWS_MOBILE
 // Tests that StrictMock<Mock> compiles where Mock is a user-defined
