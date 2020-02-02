@@ -1,0 +1,4 @@
+bin/release/encryptpad usr/bin/
+bin/release/encryptcli usr/bin/
+debian/launchers/encryptpad.desktop usr/share/applications/
+debian/icons/EncryptPad.png usr/share/icons/

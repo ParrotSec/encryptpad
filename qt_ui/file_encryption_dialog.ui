@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FileEncryptionDialog</class>
+ <widget class="QDialog" name="FileEncryptionDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>758</width>
+    <height>526</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>File Encryption</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="5" column="0">
+    <widget class="QDialogButtonBox" name="uiButtonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="5" column="0">
+      <widget class="QGroupBox" name="uiCommandGroupBox">
+       <property name="title">
+        <string>Command</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="uiStart">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" colspan="4">
+         <widget class="QProgressBar" name="uiProgressBar">
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>true</bool>
+          </property>
+          <property name="format">
+           <string notr="true">%p%</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="uiCancel">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QGroupBox" name="uiFileGroupBox">
+       <property name="title">
+        <string>Files</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_6">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Format:</string>
+          </property>
+          <property name="buddy">
+           <cstring>uiGpgRadio</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="uiInputBrowse">
+          <property name="text">
+           <string>Browse...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="uiOutputBrowse">
+          <property name="text">
+           <string>Browse...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Output file:</string>
+          </property>
+          <property name="buddy">
+           <cstring>uiOutputFile</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Input file:</string>
+          </property>
+          <property name="buddy">
+           <cstring>uiInputFile</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="uiOutputFile"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="uiInputFile"/>
+        </item>
+        <item row="0" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QRadioButton" name="uiEpdRadio">
+            <property name="toolTip">
+             <string>EncryptPad format</string>
+            </property>
+            <property name="text">
+             <string>EPD</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="uiGpgRadio">
+            <property name="toolTip">
+             <string>OpenPGP</string>
+            </property>
+            <property name="text">
+             <string>GPG</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QGroupBox" name="uiKeyPathGroupBox">
+       <property name="title">
+        <string>Key path</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Key file path:</string>
+          </property>
+          <property name="buddy">
+           <cstring>uiKeyFilePath</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="uiKeyFilePath"/>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="uiSelectKeyFile">
+          <property name="text">
+           <string>Select...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QGroupBox" name="uiPassphraseGroupBox">
+       <property name="title">
+        <string>Passphrase</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Passphrase:</string>
+          </property>
+          <property name="buddy">
+           <cstring>uiPassphrase</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Confirmation:</string>
+          </property>
+          <property name="buddy">
+           <cstring>uiConfirmPassphrase</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="uiPassphrase">
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="uiConfirmPassphrase">
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QGroupBox" name="uiParametersGroupBox">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="title">
+        <string>Parameters</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="3">
+         <widget class="QPushButton" name="uiParameters">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Parameters...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Encryption:</string>
+          </property>
+          <property name="buddy">
+           <cstring>uiEncryptRadio</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QRadioButton" name="uiEncryptRadio">
+          <property name="text">
+           <string>Encrypt</string>
+          </property>
+          <property name="icon">
+           <iconset resource="EncryptPad.qrc">
+            <normaloff>:/images/famfamfam/page_white_key.png</normaloff>:/images/famfamfam/page_white_key.png</iconset>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QRadioButton" name="uiDecryptRadio">
+          <property name="text">
+           <string>Decrypt</string>
+          </property>
+          <property name="icon">
+           <iconset resource="EncryptPad.qrc">
+            <normaloff>:/images/famfamfam/page_white_text.png</normaloff>:/images/famfamfam/page_white_text.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+  <action name="actionSwitchDirection">
+   <property name="text">
+    <string>SwitchDirection</string>
+   </property>
+  </action>
+  <action name="actionIOChange">
+   <property name="text">
+    <string>IOChange</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>uiEncryptRadio</tabstop>
+  <tabstop>uiDecryptRadio</tabstop>
+  <tabstop>uiParameters</tabstop>
+  <tabstop>uiEpdRadio</tabstop>
+  <tabstop>uiGpgRadio</tabstop>
+  <tabstop>uiInputFile</tabstop>
+  <tabstop>uiInputBrowse</tabstop>
+  <tabstop>uiOutputFile</tabstop>
+  <tabstop>uiOutputBrowse</tabstop>
+  <tabstop>uiPassphrase</tabstop>
+  <tabstop>uiConfirmPassphrase</tabstop>
+  <tabstop>uiKeyFilePath</tabstop>
+  <tabstop>uiSelectKeyFile</tabstop>
+  <tabstop>uiStart</tabstop>
+ </tabstops>
+ <resources>
+  <include location="EncryptPad.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>uiButtonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>FileEncryptionDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>275</x>
+     <y>549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiButtonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>FileEncryptionDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>343</x>
+     <y>549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiEncryptRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>uiParameters</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>613</x>
+     <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiEncryptRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>uiConfirmPassphrase</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>367</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiEncryptRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>uiPassphrase</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>367</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiEncryptRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>actionSwitchDirection</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiInputFile</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>actionIOChange</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>525</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiOutputFile</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>actionIOChange</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>525</x>
+     <y>193</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiEncryptRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>uiEpdRadio</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>324</x>
+     <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiEncryptRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>uiGpgRadio</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>341</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>526</x>
+     <y>151</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>uiFileGroupBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>uiPassphraseGroupBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>uiKeyPathGroupBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>374</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>uiParametersGroupBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>uiStart</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>uiCancel</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>370</x>
+     <y>494</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>uiButtonBox</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>537</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FileEncryptionDialog</sender>
+   <signal>ToggleWorkInProgress(bool)</signal>
+   <receiver>FileEncryptionDialog</receiver>
+   <slot>on_toggleWorkInProgress(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>uiCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>FileEncryptionDialog</receiver>
+   <slot>on_uiCancel_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>370</x>
+     <y>494</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>ToggleWorkInProgress(bool)</signal>
+  <slot>on_toggleWorkInProgress(bool)</slot>
+  <slot>on_uiCancel_clicked()</slot>
+ </slots>
+</ui>

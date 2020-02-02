@@ -1,0 +1,296 @@
+/* Style Sheet for STLplus Web Pages */
+/* http://stlplus.sourceforge.net */
+/* Author: Andy Rushton */
+/* Copyright (c) Andy Rushton 2007 */
+/* License: BSD license, see license.html */
+
+/* uncomment the following line for debugging div margins */
+/* div {border: 1px solid; margin: 1px; padding: 1px;} */
+
+/* Overall document characteristics */
+
+body
+{
+  margin: 0 auto 20px auto;
+  max-width: 1000px;
+  color: #333;
+  background-color: #eee;
+}
+
+/* Document header */
+
+#header
+{
+  background-color: #d3ccd3;
+  margin: 0px;
+  padding: 0px;
+/*
+  box-shadow: 0 0 4px 2px rgba(0,0,0,0.4);
+  position: relative;
+  z-index: 1;
+  */
+}
+
+#headerBanner
+{
+  padding: 10px;
+}
+
+#headerBanner h1
+{
+  font-size: 280%;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+
+#headerNavigation
+{
+}
+
+#headerNavigation p
+{
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+  font-size: medium;
+}
+
+#headerNavigation a
+{
+  display: inline-block;
+  border: solid 1px #666;
+  padding: 10px 2em;
+  margin: 0px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#headerNavigation a:link, #headerNavigation a:visited
+{
+  border-color: #666;
+}
+
+#headerNavigation a:hover, #headerNavigation a:active
+{
+  color: #669;
+  background-color: #bbc;
+  border-color: #669;
+}
+
+/* Content */
+
+#document
+{
+  margin: 0px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+/* Headers */
+
+h1, h2, h3, h4, h5, h6, caption
+{
+  color: #690068;
+}
+
+h1
+{
+  margin: 1em 0;
+}
+
+h2
+{
+  margin: 0.5em 0;
+}
+
+h3
+{
+  margin: 0.5em 0;
+}
+
+/* Content */
+
+#document p
+{
+  margin: 0.5em 0;
+  padding: 0;
+}
+
+/* lists */
+
+#document ul,
+#document ol
+{
+  margin: 0;
+  padding: 0;
+}
+
+#document li>ul,
+#document li>ol
+{
+  margin: 0;
+  padding: 0;
+}
+
+#document li
+{
+  margin: 0 0 0 24px;
+  padding: 0;
+}
+
+li.file
+{
+  list-style-type: disc;
+  list-style-image: url("file.png");
+}
+
+li.folder
+{
+  list-style-type: square;
+  list-style-image: url("folder.png");
+}
+
+li.cross
+{
+  list-style-image: url("cross.png");
+}
+
+li.tick
+{
+  list-style-image: url("tick.png");
+}
+
+li.internal
+{
+  list-style-image: url("down.png");
+}
+
+li.external
+{
+  list-style-image: url("file.png");
+}
+
+/* Links */
+
+a:link, a:visited
+{
+  color: #333;
+}
+
+a:hover, a:active
+{
+  color: #690068;
+}
+
+/* Definition List */
+
+#document dl
+{
+  margin: 0.5em 10px;
+}
+
+#document dt
+{
+  font-weight: bold;
+  margin: 0.5em 1em;
+}
+
+#document dd
+{
+  margin: 0.5em 2em;
+}
+
+/* Tables */
+
+table
+{
+  margin: 10px 0px;
+  border-collapse: collapse;
+}
+
+caption
+{
+  margin: 0;
+  text-align : left;
+  font-weight: bold;
+}
+
+thead
+{
+  font-weight: bold;
+  background-color: #eee;
+}
+
+th, td
+{
+  text-align: left;
+  padding: 3px 5px;
+  border: 1px solid #ccc;
+}
+
+th
+{
+}
+
+
+td
+{
+}
+
+tr
+{
+}
+
+/* Source Code Examples */
+
+pre
+{
+  padding-left: 20px;
+  font-family: monospace;
+  font-size: small;
+  overflow: auto;
+}
+
+pre.vhdl
+{
+}
+
+pre.cpp
+{
+}
+
+pre.terminal
+{
+}
+
+pre.script
+{
+}
+
+pre.syntax
+{
+}
+
+pre.node
+{
+}
+
+/* Images */
+
+p.figure
+{
+  text-align: center;
+  font-weight: bold;
+  padding: 0;
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+p.figure>img
+{
+  max-width: 96%;
+  margin: 10px 2%;
+  padding: 0;
+  border: 0;
+}

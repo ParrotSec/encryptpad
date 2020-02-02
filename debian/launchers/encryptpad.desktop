@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=EncryptPad
+Comment=Viewing and editing symmetrically encrypted text
+Exec=encryptpad
+Icon=EncryptPad
+Terminal=false
+Type=Application
+Version=1.0
+Categories=cryptography

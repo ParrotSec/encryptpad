@@ -1,0 +1,16 @@
+<defines>
+back_end_src -> 20190126
+</defines>
+
+<libs>
+linux -> rt,m,dl
+freebsd -> rt,m,dl
+openbsd -> rt,m,dl
+mingw -> ws2_32
+windows -> ws2_32.lib
+</libs>
+
+<frameworks>
+darwin -> Security
+ios -> Security
+</frameworks>

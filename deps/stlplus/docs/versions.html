@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STLplus C++ Library Collection - Versions and the Change Log</title>
+<link rel="icon" href="plus.png" type="image/png"/>
+<meta name="Author" content="Andy Rushton"/>
+<link rel="stylesheet" media="screen" type="text/css" href="screen.css"/>
+<link rel="stylesheet" media="print" type="text/css" href="print.css"/>
+</head>
+
+<body>
+
+<div id="header">
+
+<div id="headerBanner">
+<h1>STLplus C++ Library Collection</h1>
+</div>
+
+<div id="headerNavigation">
+<p>
+<a href="http://stlplus.sourceforge.net/">Website</a>
+<a href="index.html">Collection</a>
+</p>
+</div>
+
+
+</div>
+
+<div id="document">
+
+<div id="documentTitle">
+<h1>Version Numbers</h1>
+</div>
+
+<div id="documentNavigation">
+
+<ul>
+<li class="internal"><a href="#introduction">Introduction</a></li>
+<li class="internal"><a href="#cvs">Fine-Grain Version Management for Development</a></li>
+<li class="internal"><a href="#macro">Coarse-Grain Version Control for Users</a></li>
+<li class="external"><a href="version_hpp.html">See Version Macro</a></li>
+</ul>
+
+</div>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The STLplus library is an ongoing project and always will be. Therefore,
+there is a potential problem with different users using different versions of
+the library on different parts of a project - the parts may end up being
+incompatible with each other. There is also a problem whereby software will
+fail to build if the wrong version of STLplus is used.</p>
+
+<p>For these reasons, version control is used to keep track of the various
+versions of the library. In fact, there are two layers of version control used
+- one is a fine-grain control used in development of the library and then
+there is a second level which is relevant to users of the library.</p>
+
+
+<h2 id="cvs">Fine-Grain Version Management for Development</h2>
+
+<p>The library is maintained in a Subversion (SVN) repository for development purposes.
+The SVN repository is stored on the SourceForge servers and
+<a href="https://sourceforge.net/p/stlplus/stlplus3/">can be browsed via the SourceForge Website</a>.
+The use of version control allows every modification to every file in
+the library to be tracked and logged. It means that any version of
+the software at any date since the SVN repository was created can be
+reproduced by anyone, since the repository is publically accessible
+(for read-only access anyway). For example, if I wished to use the
+version that was current on 1 April 2012, I can do that.</p>
+
+<p>When this project was set up in 2003 a CVS repository was used as
+the version control software of choice, but SourceForge announced the
+discontinuation of this service in autumn 2017. Thanks to the awesome
+tool <a href="http://cvs2svn.stage.tigris.org/">cvs2svn</a> I
+was able to convert the CVS repository into an SVN one, keeping all
+the historic versions, all the tags and all of the log information.</p>
+
+<p>I converted the stlpls3 and makefiles packages. However, I decided
+at this point to scrap support for STLplus v2 (stlplus package) and so
+did not convert that repository. So all that exists of v2 are some
+historic downloadable zip files.</p>
+
+<p>The SVN repository is tagged every time I make an official user
+release.  For example, the current version of the library at the time
+of writing has the tag "stlplus3-03-14". The tags are found in the
+"tags" directory of the SVN repository. This means that checking out a
+tag will give you the user's version (in this case 3.14) of the
+library - see below for more on user versions.</p>
+
+<h2 id="macro">Coarse-Grain Version Control for Users</h2>
+
+<p>The library contains a header in the portability library called
+version.hpp which defines a macro that contains a version number. This
+is the coarse-grain user version. For example, at the time of writing the
+macro looked like this:</p>
+
+<pre class="cpp">
+#define STLPLUS_VERSION "3.14"
+</pre>
+
+<p>This means that the current version is version 3.14. The
+STLPLUS_VERSION macro was introduced for version 1.0. However, I
+strongly recommend using the latest version and certainly at least
+version 3. I do not and will not support anything earlier than that.</p>
+
+<p><a href="version_hpp.html">See Current Version Macro</a></p>
+
+<p>However, the source code for a particular version number is not necessarily fixed.
+Remember that the library is an ongoing project. There are two reasons why the
+code might change and the version not:</p>
+
+<ol>
+
+<li>bug-fixes - a bug fix to a version does not change its version
+number. However, generally bug-fixes are only made on the latest (development)
+version.</li>
+
+<li>ongoing development - when the version is not an officially released version.</li>
+
+</ol>
+
+<p>The process that I use for making releases is as follows:</p>
+
+<p>I develop new features on a copy of the SVN trunk of the
+library. This is known as the "development" copy. When I am satisfied
+that this version has reached a level of stability that makes it a
+candidate for an official release, I freeze the source code and make
+an official release of it. I do this by zipping up a downloadable copy
+of the code as well as tagging it in the SVN repository. This is the
+end of development for that version number excepting minor
+bug-fixes. If you want a copy of an official release you can get a
+copy by either downloading the zip file or checking out the tag from
+the SVN repository.</p>
+
+<p>Once an official release is made, the version number of the
+development copy of the library is incremented. This results in a new
+version which has not been released officially yet. This becomes the
+new development version which I will then use to develop more features
+or packages. If you want the very latest copy of STLplus, you can get
+a copy of this version by obtaining the "trunk" version from the SVN
+repository. Bear in mind that this version can change a lot because it
+is the development version. It can also get broken because of ongoing
+work on my part. Therefore, if you don't want to be affected by these
+changes, stick to an official release. For example, at the time of
+writing, version 3.14 was the last official release and so the
+development copy is version 3.15.</p>
+
+</div>
+
+</body>
+</html>
