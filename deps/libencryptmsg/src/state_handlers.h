@@ -22,7 +22,6 @@ namespace EncryptMsg
     void BufferEmptyOnEnter(LightStateMachine::StateMachineContext &context);
 
     bool HeaderCanEnter(LightStateMachine::StateMachineContext &context);
-    bool HeaderCanExit(LightStateMachine::StateMachineContext &context);
     bool PacketCanEnter(LightStateMachine::StateMachineContext &context);
     bool PacketCanExit(LightStateMachine::StateMachineContext &context);
 

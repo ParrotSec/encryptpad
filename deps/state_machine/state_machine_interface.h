@@ -38,6 +38,5 @@ namespace LightStateMachine
         public:
             virtual std::string Convert(StateMachineStateID state_id) = 0;
             virtual std::string StateMachineName() = 0;
-            virtual ~StateIDToStringConverter(){}
     };
 }

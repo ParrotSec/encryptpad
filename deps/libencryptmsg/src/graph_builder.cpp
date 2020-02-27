@@ -13,7 +13,7 @@ using namespace LightStateMachine;
 
 namespace EncryptMsg
 {
-    inline int ToInt(StateID state_id)
+    int ToInt(StateID state_id)
     {
         return static_cast<int>(state_id);
     }
