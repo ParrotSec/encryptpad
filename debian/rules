@@ -17,8 +17,8 @@
 %:
 	dh $@ --
 override_dh_auto_configure:
-	python configure.py
-override_dh_auto_install:
+	./configure.sh --all --use-system-libs
+#override_dh_auto_install:
 
 
 # dh_make generated override targets
