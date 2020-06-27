@@ -1,13 +1,14 @@
 Source: encryptpad
 Section: misc
 Priority: optional
-Maintainer: Parrot Teamm <dmknght@parrotsec.org>
-Uploaders: dmknght <dmknght@parrotsec.org>
+Maintainer: Parrot Dev Team <team@parrotsec.org>
+Uploaders: dmknght <dmknght@parrotsec.org>,
+           Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
 Build-Depends: debhelper-compat (= 12), python, pkg-config, libbotan-2-dev, zlib1g-dev, qt5-default, qtbase5-dev, gcc, g++, make
 Standards-Version: 4.4.1
 Homepage: https://github.com/evpo/EncryptPad
-#Vcs-Browser: https://salsa.debian.org/debian/encryptpad
-#Vcs-Git: https://salsa.debian.org/debian/encryptpad.git
+Vcs-Browser: https://nest.parrotsec.org/packages/tools/encryptpad
+Vcs-Git: https://nest.parrotsec.org/packages/tools/encryptpad.git
 
 Package: encryptpad
 Architecture: any
