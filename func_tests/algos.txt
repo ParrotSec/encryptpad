@@ -1,10 +1,13 @@
-compress zip
-compress zlib
+compress ZIP
+compress ZLIB
+compress BZIP2
 compress none
 cipher CAST5
 cipher 3DES
 cipher AES
 cipher AES256
+cipher TWOFISH
+cipher CAMELLIA256
 s2k_algo SHA1
 s2k_algo SHA256
-s2k_algo SHA512
+s2k_algo SHA224

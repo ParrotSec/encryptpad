@@ -251,16 +251,21 @@ Ar norite jį pakeisti?</translation>
     <name>FileExtensions</name>
     <message>
         <location filename="file_name_helper.cpp" line="36"/>
+        <source>ASCII-armored GnuPG (*.asc)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="file_name_helper.cpp" line="37"/>
         <source>Plain Text (*.txt)</source>
         <translation>Grynasis tekstas (*.txt)</translation>
     </message>
     <message>
-        <location filename="file_name_helper.cpp" line="40"/>
-        <source>Encrypted Files (*.epd *.gpg);; Plain Text (*.txt)</source>
-        <translation>Šifruoti failai (*.epd *.gpg);; Grynasis tekstas (*.txt)</translation>
+        <location filename="file_name_helper.cpp" line="41"/>
+        <source>Encrypted Files (*.epd *.gpg *.asc);; Plain Text (*.txt)</source>
+        <translation>Šifruoti failai (*.epd *.gpg *.asc);; Grynasis tekstas (*.txt)</translation>
     </message>
     <message>
-        <location filename="file_name_helper.cpp" line="41"/>
+        <location filename="file_name_helper.cpp" line="42"/>
         <source>Key (*.key)</source>
         <translation>Raktas (*.key)</translation>
     </message>

@@ -251,16 +251,21 @@ Souhaitez-vous le remplacer ?</translation>
     <name>FileExtensions</name>
     <message>
         <location filename="file_name_helper.cpp" line="36"/>
+        <source>ASCII-armored GnuPG (*.asc)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="file_name_helper.cpp" line="37"/>
         <source>Plain Text (*.txt)</source>
         <translation>Texte en clair (*.txt)</translation>
     </message>
     <message>
-        <location filename="file_name_helper.cpp" line="40"/>
-        <source>Encrypted Files (*.epd *.gpg);; Plain Text (*.txt)</source>
-        <translation>Fichiers chiffrés (*.epd *.gpg);; Texte en clair (*.txt)</translation>
+        <location filename="file_name_helper.cpp" line="41"/>
+        <source>Encrypted Files (*.epd *.gpg *.asc);; Plain Text (*.txt)</source>
+        <translation>Fichiers chiffrés (*.epd *.gpg *.asc);; Texte en clair (*.txt)</translation>
     </message>
     <message>
-        <location filename="file_name_helper.cpp" line="41"/>
+        <location filename="file_name_helper.cpp" line="42"/>
         <source>Key (*.key)</source>
         <translation>Clé (*.key)</translation>
     </message>
@@ -584,7 +589,7 @@ Souhaitez-vous le remplacer ?</translation>
         <location filename="mainwindow.cpp" line="259"/>
         <location filename="mainwindow.cpp" line="275"/>
         <source>Cannot open &apos;%1&apos;</source>
-        <translation>Impossible d’ouvrir « %1 »</translation>
+        <translation>Impossible d’ouvrir « %1 »</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="295"/>
@@ -654,7 +659,7 @@ Souhaitez-vous le remplacer ?</translation>
     <message>
         <location filename="mainwindow.cpp" line="637"/>
         <source>Cannot generate the key &apos;%1&apos; Check the path and permissions.</source>
-        <translation>Impossible de générer la clé « %1 ». Vérifier le chemin et les droits.</translation>
+        <translation>Impossible de générer la clé « %1 ». Vérifier le chemin et les droits.</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="639"/>
@@ -1078,7 +1083,7 @@ Souhaitez-vous le remplacer ?</translation>
     <message>
         <location filename="mainwindow.cpp" line="1336"/>
         <source>Cannot save &apos;%1&apos;</source>
-        <translation>Impossible d’enregistrer « %1 »</translation>
+        <translation>Impossible d’enregistrer « %1 »</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="1339"/>
@@ -1338,7 +1343,7 @@ Souhaitez-vous le remplacer ?</translation>
     <message>
         <location filename="preferences_dialog.ui" line="66"/>
         <source>Parameters:</source>
-        <translation>Paramètres :</translation>
+        <translation>Paramètres :</translation>
     </message>
     <message>
         <location filename="preferences_dialog.ui" line="51"/>
