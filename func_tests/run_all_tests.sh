@@ -6,7 +6,7 @@ set -o pipefail
 
 UNAME=$(uname)
 
-if [[ $UNAME == *MINGW* || $UNAME == *Darwin* ]]; then
+if [[ $UNAME == *MINGW* || $UNAME == *Darwin* || $UNAME == *MSYS* ]]; then
     GPG="gpg"
 else
     GPG="gpg2"
@@ -47,6 +47,19 @@ then
     dd if=/dev/urandom of=$PLAIN_TEXT_FILE bs=1048576 count=15
 fi
 
+# crlf end of line
+
+echo "CRLF EOL"
+$S ./crlf_end_of_line.sh $BIN
+
+# backward compatibility tests
+echo "Backward compatibility tests"
+$S ./compat_test.sh $BIN
+
+# corrupt input tests
+echo "Corrupt input tests"
+$S ./corrupt_input_test.sh $BIN
+
 # diffrent key file and passphrase combinations
 $S ./epd_encryption_test.sh $BIN "$PLAIN_TEXT_FILE"
 
@@ -72,9 +85,6 @@ echo "Input / output redirection tests"
 $S ./io_redir_test.sh $BIN
 $S ./decryption_test.sh "$1" ./epd_encrypted_last
 
-# backward compatibility tests
-echo "Backward compatibility tests"
-$S ./compat_test.sh $BIN
 rm -Rf ./epd_encrypted_last
 rm -Rf ./gpg_encrypted_last
 rm -Rf ./tmp

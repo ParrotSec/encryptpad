@@ -8,30 +8,33 @@ EncryptPad est une application de visualisation et d’édition de texte chiffr�
 * [Quand ai-je besoin d’EncryptPad ?](#when-encryptpad)
 * [Quand ne puis-je pas utiliser EncryptPad ?](#when-can-i-not)
 * [Types de fichiers](#file-types)
-  - [GPG](#gpg)
-  - [EPD](#epd)
-  - [Prise en charge des fonctions](#feature-support)
+  – [GPG](#gpg)
+  – [EPD](#epd)
+  – [Prise en charge des fonctions](#feature-support)
 * [Qu’est-ce qu’un fichier clé EncryptPad ?](#key-file)
 * [Format de fichier EPD lors du chiffrement avec clé](#epd-file-format)
 * [Utiliser CURL pour télécharger automatiquement des clés d’un stockage distant](#use-curl)
 * [Faiblesses connues](#known-weaknesses)
 * [Interface en ligne de commande](#command-line-interface)
 * [Installer EncryptPad](#installing)
-    - [Exécutable portable](#portable-exe)
-    - [Arch Linux](#install-on-arch)
-    - [Ubuntu ou Linux Mint](#install-on-ubuntu)
+    – [Exécutable portable](#portable-exe)
+    – [Arch Linux](#install-on-arch)
+    – [Ubuntu ou Linux Mint](#install-on-ubuntu)
 * [Compiler EncryptPad sous Windows](#compile-on-windows)
-  - [Prérequis](#prerequisites)
-  - [Étapes](#steps)
+  – [Prérequis](#prerequisites)
+  – [Étapes](#steps)
 * [Compiler EncryptPad sous Mac/Linux](#compile-on-mac-linux)
-    - [Compilation dynamique](#dynamic-build)
-    - [Fedora](#build-on-fedora)
+    – [Fedora](#build-on-fedora)
+    – [Ubuntu](#build-on-ubuntu)
+    – [Debian](#build-on-debian)
+    – [openSUSE](#build-on-opensuse)
+    – [FreeBSD](#build-on-freebsd)
 * [Mode portable](#portable-mode)
 * [EncryptPad stocke-t-il les phrases de passe en mémoire pour rouvrir les fichiers ?](#passphrases-in-memory)
 * [Remerciements](#acknowledgements)
 * [Vérification de l’intégrité par EncryptPad](#integrity-verification)
-    - [Signature OpenPGP et autorité de certification](#openpgp-signing)
-    - [Processus de vérification étape par étape](#verification-process)
+    – [Signature OpenPGP et autorité de certification](#openpgp-signing)
+    – [Processus de vérification étape par étape](#verification-process)
 * [Licence](#license)
 * [Contact et rétroaction](#contacts)
 
@@ -55,10 +58,11 @@ EncryptPad est une application de visualisation et d’édition de texte chiffr�
 * Format de fichier compatible avec **OpenPGP**
 * **S2K itéré et salé**
 * **Les phrases de passe ne sont pas conservées en mémoire** pour être réutilisées, seulement les résultats S2K ([plus…](#passphrases-in-memory))
-* Algorithmes de chiffrement : **CAST5, TripleDES, AES128, AES256**
-* Algorithmes de hachage : **SHA-1, SHA-256, SHA-512**
+* Algorithmes de chiffrement : **TripleDES, CAST5, AES, AES192, AES256, Camellia128, Camellia192, Camellia256, Twofish**
+* Algorithmes de hachage : **SHA-1, SHA-256, SHA-384, SHA-512, SHA-224**
 * Protection de l’intégrité : **SHA-1**
-* Compression : **ZLIB, ZIP**
+* Compression : **ZLIB, ZIP, Bzip2**
+* **Armure ASCII**
 * Les ** fichiers volumineux de plusieurs giga-octets** sont pris en charge
 
 <div id="supported-platforms"></div>
@@ -144,7 +148,7 @@ Format propre à EncryptPad. Les autres logiciels OpenPGP ne pourront pas l’ou
 <tr><td>GPG</td><td>Fichier clé et phrase de passe</td><td>non</td><td>n.d.</td><td>n.d.</td><td>n.d.</td></tr>
 <tr><td>EPD</td><td>Phrase de passe</td><td>oui</td><td>n.d.</td><td>oui</td><td>Fichier OpenPGP</td></tr>
 <tr><td>EPD</td><td>Fichier clé</td><td>oui</td><td>oui</td><td>non</td><td>Imbriqué : WAD/OpenPGP</td></tr>
-<tr><td>EPD</td><td>Fichier clé et phrase de passe</td><td>oui</td><td>oui</td><td>non</td><td>Imbriqué : OpenPGP/WAD/OpenPGP</td></tr>
+<tr><td>EPD</td><td>Fichier clé et phrase de passe</td><td>oui</td><td>oui</td><td>non</td><td>Imbriqué : OpenPGP/WAD/OpenPGP</td></tr>
 </table>
 
 \*  L’emplacement du fichier clé se trouve dans l’en-tête d’un fichier chiffré afin que l’utilisateur n’ait pas à l’indiquer lors du déchiffrement.
@@ -153,10 +157,10 @@ Format propre à EncryptPad. Les autres logiciels OpenPGP ne pourront pas l’ou
 
 ## Qu’est-ce qu’un fichier clé EncryptPad ?
 Dans un chiffrement symétrique, la même séquence est utilisée pour chiffrer et pour déchiffrer les données. L’utilisateur ou une autre
-application fournie habituellement la séquence sous la forme d’une phrase de passe saisie ou d’un fichier. En plus des
-phrases de passe saisies, EncryptPad génère des fichiers avec des séquences aléatoires appelés « fichiers clés ».
+application fournit habituellement la séquence sous la forme d’une phrase de passe saisie ou d’un fichier. En plus des
+phrases de passe saisies, EncryptPad génère des fichiers avec des séquences aléatoires appelés « fichiers clés ».
 
-Quand l’utilisateur crée un fichier clé, EncryptPad génère une séquence  aléatoire d’octets, demande une
+Quand l’utilisateur crée un fichier clé, EncryptPad génère une séquence aléatoire d’octets, demande une
 phrase de passe à l’utilisateur, chiffre la séquence générée et l’enregistre dans un fichier.
 
 Le format du fichier est OpenPGP. D’autres applications OpenPGP peuvent aussi créer et 
@@ -194,7 +198,7 @@ Un fichier enregistré peut avoir trois structures différentes selon le mode de
 
 1. **Phrase de passe seulement** (une phrase de passe est utilisée pour protéger un fichier, mais aucune clé n’est spécifiée). Le fichier est un fichier OpenPGP ordinaire.
 
-2. **Clé seulement** (une phrase de passe n’est pas définie, mais un fichier clé est utilisé pour la protection). Le fichier est un fichier WAD. [WAD](https://fr.wikipedia.org/wiki/.wad) est un format simple qui combine plusieurs fichiers binaires en un seul. Vous pouvez ouvrir un fichier WAD avec [Slade](http://slade.mancubus.net/). Il contient deux fichiers : 
+2. **Clé seulement** (une phrase de passe n’est pas définie, mais un fichier clé est utilisé pour la protection). Le fichier est un fichier WAD. [WAD](https://fr.wikipedia.org/wiki/.wad) est un format simple qui combine plusieurs fichiers binaires en un seul. Vous pouvez ouvrir un fichier WAD avec [Slade](http://slade.mancubus.net/). Il contient deux fichiers : 
     * Fichier OpenPGP chiffré avec la clé
     * `__X2_KEY` est un fichier texte en clair contenant le chemin de la clé si l’option « Emplacement de clé persistante dans le fichier chiffré » est activée. Sinon, il a une taille de zéro.
 
@@ -224,17 +228,17 @@ Si le fichier tombe dans les mains d’un malfaiteur, il devra d’abord attaque
 
 ## Interface en ligne de commande
 
-**encryptcli** est l’exécutable pour chiffrer ou déchiffrer des fichiers  à partir de la ligne de commande. Exécutez-le sans
+**encryptcli** est l’exécutable pour chiffrer ou déchiffrer des fichiers à partir de la ligne de commande. Exécutez-le sans
 arguments pour obtenir une liste des paramètres proposés. Ci-dessous un exemple de chiffrement d’un fichier avec une clé :
 
-    # générer une nouvelle clé et la protéger avec la phrase de passe « clé ».
+    # générer une nouvelle clé et la protéger avec la phrase de passe « clé ».
     # --key-pwd-fd 0 pour lire la phrase par de la clé à partir de descripteur 0
     echo -n "clé" | encryptcli --generate-key --key-pwd-fd 0 ma_clé.key
 
-    # chiffrer texte_clair.txt avec ma_clé.key créé ci-dessus.
+    # chiffrer texte_en_clair.txt avec ma_clé.key créé ci-dessus.
     # La phrase de passe de la clé est envoyé par le descripteur de fichier 3
-    cat texte_clair.txt | encryptcli -e --key-file ma_clé.key \
-    --key-only --key-pwd-fd 3 -o texte_clair.txt.gpg 3< <(echo -n "clé")
+    cat texte_en_clair.txt | encryptcli -e --key-file ma_clé.key \
+    --key-only --key-pwd-fd 3 -o texte_en_clair.txt.gpg 3< <(echo -n "clé")
 
 <div id="installing"></div>
 
@@ -258,8 +262,8 @@ Utiliser des empreintes pour recevoir des clés gpg pour EncryptPad et Botan
 
 Installer les paquets AUR ci-dessous :
 
-- [botan-stable](https://aur.archlinux.org/packages/botan-stable/)<sup><small>AUR</small></sup>
-- [encryptpad](https://aur.archlinux.org/packages/encryptpad/)<sup><small>AUR</small></sup>
+– [botan-stable](https://aur.archlinux.org/packages/botan-stable/)<sup><small>AUR</small></sup>
+– [encryptpad](https://aur.archlinux.org/packages/encryptpad/)<sup><small>AUR</small></sup>
 
 `pacaur` installe `botan-stable` automatiquement comme dépendance d’`encryptpad`.
 
@@ -316,7 +320,7 @@ Ci-dessous se trouvent les étapes pour vérifier les hachages SHA-1 des fichie
 
     gpg --verify encryptpad0_3_2_5_webupd8_ppa_changes.tar.gz.asc
 
-5\. Extraire le contenu :
+5\. Extraire le contenu :
 
     tar -xf encryptpad0_3_2_5_webupd8_ppa_changes.tar.gz
 
@@ -333,7 +337,7 @@ Ci-dessous se trouvent les étapes pour vérifier les hachages SHA-1 des fichie
 
 ### Prérequis
 
-1. [**Le cadre d’applications Qt**](http://www.qt.io/download-open-source/) fondé sur MingW 32 bits (la dernière version a été testée avec Qt 5.3.2).
+1. [**Le cadre d’applications Qt**](http://www.qt.io/download-open-source/) fondé sur MingW 32 bits (la dernière version a été testée avec Qt 5.10.1).
 2. MSYS : vous pouvez en utiliser un regroupé avec [**Git pour Windows**](http://git-scm.com/download/win). Vous utilisez probablement déjà Git.
 3. Python : toute version récente fonctionnera
 
@@ -341,21 +345,17 @@ Ci-dessous se trouvent les étapes pour vérifier les hachages SHA-1 des fichie
 
 ### Étapes
 
-1. Modifier la variable d’environnement de session **PATH** afin d’inclure l’ensemble d’outils Qt et Python. **mingw32-make**, **g++**, **qmake**, **python.exe** devraient se trouver dans le chemin de recherche globale de votre session bash Git. Personnellement, je modifie bash.bashrc et ajoute une ligne comme `PATH=$PATH:/c/Python35-32:…` afin de ne pas polluer la variable PATH à l’échelle du système.
+1. Modifier la variable d’environnement de session **PATH** afin d’inclure l’ensemble d’outils Qt et Python. **mingw32-make**, **g++**, **qmake**, **python.exe** devraient se trouver dans le chemin de recherche globale de votre session bash Git. Personnellement, je modifie bash.bashrc et ajoute une ligne tel que `PATH=/c/Python35-32:/c/Qt/5.10.1/mingw53_32/bin:/c/Qt/Tools/mingw530_32/bin:/c/MinGW/msys/1.0/bin:/bin` afin de ne pas polluer la variable PATH à l’échelle du système.
 
 2. Extraire les fichiers sources d’EncryptPad dans un répertoire.
 
-3. Exécuter le script **configure.sh** sans paramètres pour voir les options proposées. Pour tout compiler :
+3. Exécuter le script **configure.py --help** pour voir les options proposées. Pour tout compiler :
 
-    ./configure.sh --all
+    ./configure.py --cpu x86 --os mingw --static
+    make
 
-ou pour des fichiers binaires localisés
-
-    ./configure.sh --all-cultures
-
-Le système Makefiles utilise **uname** pour identifier le système d’exploitation et la plate-forme. Vous pourriez avoir à modifier les paramètres uname dans **./deps/makefiles/platform.mak** pour que cela fonctionne. Consultez la documentation Makefiles et le script configure.sh si vous éprouvez des problèmes.
-
-Si la compilation a réussi vous devriez voir l’exécutable **./bin/release/EncryptPad.exe**
+La commande configure fonctionnera toujours si vous exécutez votre console avec des privilèges d’administrateur. Si vous ne voulez pas l’exécuter en tant qu’administrateur, ajoutez `--link-method hardlink` aux options.
+Si la compilation réussie, vous devriez voir l’exécutable **./bin/release/encryptpad.exe**
 
 Prendre note que si vous voulez qu’EncryptPad fonctionne en un seul exécutable sans dll, vous devez compiler le d’applications Qt vous-même de façon statique. Cela prend quelques heures. De nombreuses instructions décrivant comment accomplir cela se trouvent sur Internet. L’article le plus populaire recommande d’utiliser un script PowerShell. Bien qu’il soit très pratique (je l’ai utilisé une fois), on ne veut pas toujours mettre à niveau son PowerShell et installer les lourdes dépendances qui viennent avec. Et donc, la fois d’après, j’ai lu le script et j’ai tout fait manuellement. Heureusement qu’il n’y avait pas trop d’étapes.
 
@@ -363,19 +363,13 @@ Prendre note que si vous voulez qu’EncryptPad fonctionne en un seul exécutabl
 
 ## Compiler EncryptPad sous Mac ou Linux
 
-C’est plus facile que de compiler sous Windows. Tout ce que vous avez à faire est d’installer Qt, Python et d’exécuter :
+Tout ce que vous avez à faire est d’installer Qt, Python et d’exécuter :
 
-    ./configure.sh --all
+    export PATH=$HOME/Qt/5.10.1/clang_64/bin/:$PATH
+    ./configure.py --build-botan --ldflags "-mmacosx-version-min=10.10" --cxxflags "-mmacosx-version-min=10.10"
+    make
 
-<div id="dynamic-build"></div>
-
-### Compilation dynamique
-
-    ./configure.sh --all --use-system-libs
-
-Compilation avec des liens dynamiques vers les bibliothèques. Elle utilise aussi `Botan` et `Zlib` installés sur le système plutôt
-que de compiler leur code source sous `deps`. Sous Ubuntu, installer les
-paquets « libbotan1.10-dev » et « zlib1g-dev » avant de compiler.
+Changez le chemin de Qt et remplacez les versions minimales de macOS suivant le besoin. La commande fonctionnera sans elles, mais le résultat sera limité à la version actuelle.
 
 <div id="build-on-fedora"></div>
 
@@ -389,14 +383,84 @@ Installer les dépendances et outils :
 
 Ouvrir le répertoire encryptpad :
 
-    ./configure.sh --all
+    ./configure.py --build-botan --build-zlib
+    make
 
 Pour une compilation dynamique en utilisant les bibliothèques système :
 
     dnf install botan-devel
-    ./configure.sh --all --use-system-libs
+    ./configure.py
+    make
 
-<div id="portable-mode"></dev>
+<div id="build-on-ubuntu"></div>
+
+### Ubuntu
+
+Installer les dépendances et outils :
+
+    apt-get install qtbase5-dev qt5-default gcc g++ make python pkg-config zlib1g-dev libbotan-2-dev
+
+Ouvrir le répertoire source d’Encryptpad :
+
+    ./configure.py --build-bzip2
+    make
+
+<div id="build-on-debian"></div>
+
+### Debian
+
+Installer les dépendances et outils :
+
+    apt-get install qtbase5-dev qt5-default gcc g++ make python zlib1g-dev pkg-config
+
+Ouvrir le répertoire source d’Encryptpad :
+
+    ./configure.py --build-botan --build-zlib
+    make
+
+Vous pouvez aussi utiliser le `libbotan-2-dev` du système au lieu de le compiler. Si `libbotan-2-dev` n’est pas proposé, ajoutez `stretch-backports` au dépôt :
+
+    echo "deb http://deb.debian.org/debian/ stretch-backports main" >> /etc/apt/sources.list
+
+    apt-get install libbotan-2-dev
+
+    ./configure.py
+    make
+
+<div id="build-on-opensuse"></div>
+
+### openSUSE
+
+Installer les dépendances et outils :
+
+    zypper install gcc gcc-c++ make python pkg-config zlib-devel libqt5-qtbase-devel
+    ln -s qmake-qt5 /usr/bin/qmake
+
+Vous pouvez aussi installer des versions ultérieures du compilateur et les relier aux commandes par défaut :
+
+    zypper install gcc7 gcc7-c++
+    ln -sf gcc-7 /usr/bin/gcc
+    ln -sf g++-7 /usr/bin/g++
+
+Ouvrir le répertoire source d’Encryptpad :
+
+    ./configure.py --build-botan --build-zlib
+    make
+
+<div id="build-on-freebsd"></div>
+
+### FreeBSD
+
+Installer les dépendances et outils :
+
+    pkg install python pkgconf botan2 qt5
+
+Ouvrir le répertoire source d’Encryptpad :
+
+    ./configure.py
+    make
+
+<div id="portable-mode"></div>
 
 ## Mode portable
 
@@ -461,11 +525,11 @@ Il y a plusieurs raisons pour lesquelles je n’ai pas simplement utilisé le ce
 
 EncryptPad est un logiciel libre et gratuit : vous pouvez le redistribuer ou le modifier
 selon les conditions de la [licence générale publique GNU](http://www.gnu.org/licenses/) telle que publiée par
-« Free Software Foundation », soit la version 2 de la licence, soit
+« Free Software Foundation », soit la version 2 de la licence, soit
 toute version ultérieure (à votre gré).
 
 EncryptPad est distribuée en espérant qu’elle sera utile,
-mais SANS GARANTIE ; sans même la garantie tacite de QUALITÉ
+mais SANS GARANTIE, sans même la garantie tacite de QUALITÉ
 MARCHANDE ou D’ADÉQUATION À UN BUT PARTICULIER. Voir la
 licence générale publique GNU pour plus de détails.
 
