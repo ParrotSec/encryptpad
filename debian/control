@@ -2,10 +2,10 @@ Source: encryptpad
 Section: misc
 Priority: optional
 Maintainer: Parrot Dev Team <team@parrotsec.org>
-Uploaders: dmknght <dmknght@parrotsec.org>,
+Uploaders: Nong Hoang "dmknght" Tu <dmknght@parrotsec.org>,
            Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
-Build-Depends: debhelper-compat (= 12), python, pkg-config, libbotan-2-dev, zlib1g-dev, qt5-default, qtbase5-dev, gcc, g++, make
-Standards-Version: 4.4.1
+Build-Depends: debhelper-compat (= 12), python3, pkg-config, libbotan-2-dev, zlib1g-dev, qtbase5-dev, gcc, g++, make
+Standards-Version: 4.5.1
 Homepage: https://github.com/evpo/EncryptPad
 Vcs-Browser: https://nest.parrotsec.org/packages/tools/encryptpad
 Vcs-Git: https://nest.parrotsec.org/packages/tools/encryptpad.git
