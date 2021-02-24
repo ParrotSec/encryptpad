@@ -18,7 +18,7 @@
 	dh $@ --
 override_dh_auto_configure:
 	python3 configure.py
-#override_dh_auto_install:
+override_dh_auto_install:
 
 
 # dh_make generated override targets
